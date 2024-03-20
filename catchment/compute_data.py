@@ -64,7 +64,7 @@ class JSONDataSource():
     def load_catchment_data(self): # same method name as in CSV so we can use it in the same way.
         data_file_paths = glob.glob(os.path.join(self.data_dir, 'rain_data_2015*.json'))
         if len(data_file_paths) == 0:
-            raise ValueError('No CSV files found in the data directory')
+            raise ValueError('No JSON files found in the data directory')
     
         data = map(models.read_variable_from_json, data_file_paths)
         return list(data)
