@@ -37,7 +37,7 @@ def main(args):
     for filename in InFiles:
         _, extension = os.path.splitext(InFiles[0])
         if extension == '.csv':
-            measurement_data = models.read_variable_from_csv(filename)
+            measurement_data = models.read_variable_from_csv(filename, args.measurements)
         elif extension == '.json':
             measurement_data = models.read_variable_from_json(filename)
         else:
@@ -51,10 +51,17 @@ def create_argparse():
     parser = argparse.ArgumentParser(
         description='A basic environmental data management system')
     
+    req_group = parser.add_argument_group('required arguments')
+    
     parser.add_argument(
         'infiles',
         nargs='+',
         help='Input CSV(s) containing measurement data')
+    
+    req_group.add_argument(
+        '-m', '--measurements',
+        help = 'Name of measurement data series to load'
+    )
 
     parser.add_argument('--full-data-analysis', action='store_true', dest='full_data_analysis')
     
